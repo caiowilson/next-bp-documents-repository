@@ -71,4 +71,25 @@ function redirect_to_documents() {
 
 add_action( 'wp', 'redirect_to_documents' );
 
+
+function bp_groups_documents_search_list(){
+	if($_POST['bp-documents-search-name'] != ''){
+
+		$template = new BP_Group_Documents_Template();
+
+		foreach ($template->document_list as $document_params) {
+			$document = new BP_Group_Documents($document_params['id'], $document_params);
+
+			if($document->name == $_POST['bp-documents-search-name']){
+				echo "Arquivos encontrados com esse nome: </br>
+						
+						<a href='" . $document->get_url() . "' >" . $document->name . '</a> ' ;
+			}
+		}
+	}
+}
+
+//add_filter('bp_group_documents_display', 'bp_groups_documents_search_list');
+
+
 ?>
