@@ -39,7 +39,7 @@ function bp_groups_remove_menus_from_repo() {
 	
 	$current_group_slug = $bp->groups->current_group->slug;
 	
-	if(strpos($path, '/repositorio/') == (false || '' || 0)){
+	if(strpos($current_group_slug, 'repositorio') != (false || '' || 0)){
 		
 		$bp->bp_options_nav[$current_group_slug]['home'] = false;
 		$bp->bp_options_nav[$current_group_slug]['forum'] = false;
