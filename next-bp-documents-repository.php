@@ -24,32 +24,34 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /* function bp_dump() {
 	global $bp;
 	$current_group_slug = $bp->groups->current_group->slug;
-	foreach ( (array)$bp->groups->current_group as $key => $value ) {
+	foreach ( (array)$bp as $key => $value ) {
 		echo '<pre>';
 		echo '<strong>' . $key . ': </strong><br />';
 		print_r( $value );
 		echo '</pre>';
 	}
 	die;
-}
-add_action( 'wp', 'bp_dump' );
- */
+} */
+//add_action( 'bp_head', 'bp_dump' );
+
 function bp_groups_remove_menus_from_repo() {
 	global $bp;
 	
 	$current_group_slug = $bp->groups->current_group->slug;
 	
-	if(strpos($current_group_slug, 'repositorio') != (false || '' || 0)){
+	if(!(strpos($current_group_slug, 'repositorio') === false)){
 		
 		$bp->bp_options_nav[$current_group_slug]['home'] = false;
+		$bp->bp_options_nav[$current_group_slug]['forums'] = false;
 		$bp->bp_options_nav[$current_group_slug]['forum'] = false;
+		$bp->bp_options_nav[$current_group_slug]['docs'] = false;
 		$bp->bp_options_nav[$current_group_slug]['members'] = false;
 		$bp->bp_options_nav[$current_group_slug]['events'] = false;
 		
 	}
 
 }
-add_action('wp', 'bp_groups_remove_menus_from_repo');
+add_action('bp_head', 'bp_groups_remove_menus_from_repo');
 
 function redirect_to_documents() {
 	global $bp;
